@@ -1,5 +1,9 @@
 # Schedulely Demo
 
+Work submitted for Intro to PM class Group 8
+Sui Zhong, Calvin Yuxiong Lin, Tracy Cen
+Code written with the aid of OpenAI Codex GPT5.3
+
 Minimal scheduling demo for class.
 
 The app lets a user:
