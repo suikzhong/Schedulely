@@ -302,16 +302,17 @@
   loadUsers()
 </script>
 
-<main class="h-screen overflow-hidden bg-base-200 p-4 lg:p-6">
+<main class="h-screen overflow-hidden bg-[#F0F3F1] p-4 lg:p-6">
   <div class="mx-auto flex h-full max-w-6xl min-h-0 flex-col">
     <div class="mb-4 flex shrink-0 items-center justify-between gap-3">
       <div class="flex items-center">
         <img
           src="/sch-logo.png"
           alt="Schedulely logo"
-          class="h-12 w-auto max-w-[52vw] rounded-md object-contain lg:max-w-[20rem]"
+          class="h-36 w-auto max-w-[52vw] rounded-md object-contain lg:max-w-[20rem]"
         />
       </div>
+      <div class="hidden flex-1 lg:block"></div>
       <button class="btn btn-error btn-outline" on:click={resetDatabase} disabled={loading}>
         Reset Database
       </button>
@@ -344,7 +345,7 @@
         {#if calendarFile}
           <div class="text-sm opacity-80">Selected file: {calendarFile.name}</div>
         {/if}
-        <button class="btn btn-primary" on:click={createUserAndImport} disabled={loading}>
+        <button class="btn btn-brand-blue" on:click={createUserAndImport} disabled={loading}>
           Create user + import
         </button>
         {#if currentUser}
@@ -395,7 +396,7 @@
               {#if proposalResult}
                 <div
                   class="alert mt-3"
-                  class:alert-success={proposalResult.status === 'valid'}
+                  class:proposal-valid={proposalResult.status === 'valid'}
                   class:alert-warning={proposalResult.status === 'conflicted'}
                 >
                   <div>
@@ -441,7 +442,7 @@
 
                 <div class="flex gap-2">
                   <button
-                    class="btn btn-primary"
+                    class="btn btn-brand-green"
                     on:click={createSpace}
                     disabled={(loading || (!currentUser && selectedMemberIds.length < 2))}
                   >

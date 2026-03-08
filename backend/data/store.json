@@ -1,226 +1,157 @@
 {
   "users": [
     {
-      "id": "2404e3ce-e3c3-4eff-b18c-c79a946c98bc",
+      "id": "ff02af2b-3701-41dd-b7ea-14b1fc6d81c9",
       "name": "Teammate One",
       "email": "teammate1@example.com",
       "timezone": "America/New_York",
       "outlookHtmlUrl": "https://outlook.office.com/calendar/published/example1.html",
-      "createdAt": "2026-03-08T02:21:55.208Z",
-      "lastImportAt": "2026-03-08T02:21:55.208Z"
+      "createdAt": "2026-03-08T03:30:21.653Z",
+      "lastImportAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "9245371b-c50a-400e-94f9-a38c9c4bb21b",
+      "id": "20f404f3-3784-461b-ba44-6129d748174a",
       "name": "Teammate Two",
       "email": "teammate2@example.com",
       "timezone": "America/New_York",
       "outlookHtmlUrl": "https://outlook.office.com/calendar/published/example2.html",
-      "createdAt": "2026-03-08T02:21:55.208Z",
-      "lastImportAt": "2026-03-08T02:21:55.208Z"
+      "createdAt": "2026-03-08T03:30:21.653Z",
+      "lastImportAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "e13177b1-aa5a-4e9d-ae1b-8fd193e76b18",
+      "id": "3fb0c624-7016-406d-9b7f-ce52d616c50b",
       "name": "Teammate Three",
       "email": "teammate3@example.com",
       "timezone": "America/New_York",
       "outlookHtmlUrl": "https://outlook.office.com/calendar/published/example3.html",
-      "createdAt": "2026-03-08T02:21:55.208Z",
-      "lastImportAt": "2026-03-08T02:21:55.208Z"
-    },
-    {
-      "id": "d0cb10ce-ea39-4871-a9de-93f5489ad3f2",
-      "name": "sui",
-      "email": "skz@mit.edu",
-      "timezone": "America/New_York",
-      "outlookHtmlUrl": "https://outlook.office365.com/owa/calendar/6eacb03cd4d9487498669ceedce15b0d@mit.edu/11fd925c04bc4f0bbc9975c15eaa26933968982047627905136/calendar.ics",
-      "createdAt": "2026-03-08T02:22:15.126Z",
-      "lastImportAt": "2026-03-08T02:22:15.643Z"
+      "createdAt": "2026-03-08T03:30:21.653Z",
+      "lastImportAt": "2026-03-08T03:30:21.653Z"
     }
   ],
   "availabilityBlocks": [
     {
-      "id": "7dad5a2a-55b3-49a0-acba-39bba2e9c07f",
-      "userId": "2404e3ce-e3c3-4eff-b18c-c79a946c98bc",
+      "id": "1b88a85a-8cbf-4163-ba6d-ad60bf53738a",
+      "userId": "ff02af2b-3701-41dd-b7ea-14b1fc6d81c9",
       "startAt": "2026-03-09T15:00:00.000Z",
       "endAt": "2026-03-09T16:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "402513dc-dcf4-4371-9ff3-adc1b5ecc988",
-      "userId": "2404e3ce-e3c3-4eff-b18c-c79a946c98bc",
+      "id": "b332126f-9228-43d1-b48d-e48967b0c56a",
+      "userId": "ff02af2b-3701-41dd-b7ea-14b1fc6d81c9",
       "startAt": "2026-03-10T18:00:00.000Z",
       "endAt": "2026-03-10T19:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "04a6b312-b23b-41b9-952d-27563a5bf4c5",
-      "userId": "2404e3ce-e3c3-4eff-b18c-c79a946c98bc",
+      "id": "b7f3a45a-1205-4590-b90a-0151b4b71fc3",
+      "userId": "ff02af2b-3701-41dd-b7ea-14b1fc6d81c9",
       "startAt": "2026-03-11T14:00:00.000Z",
       "endAt": "2026-03-11T15:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "2344eb7f-65f2-4106-a4d4-d2d075c6cdcc",
-      "userId": "2404e3ce-e3c3-4eff-b18c-c79a946c98bc",
+      "id": "bff97f04-ea7d-4b14-b981-c826b510a065",
+      "userId": "ff02af2b-3701-41dd-b7ea-14b1fc6d81c9",
       "startAt": "2026-03-12T20:00:00.000Z",
       "endAt": "2026-03-12T21:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "689aab82-1af5-412e-86cc-d06fccaf0f8a",
-      "userId": "2404e3ce-e3c3-4eff-b18c-c79a946c98bc",
+      "id": "973e97dc-2f2c-464a-af51-315a6d5f2ccb",
+      "userId": "ff02af2b-3701-41dd-b7ea-14b1fc6d81c9",
       "startAt": "2026-03-14T16:00:00.000Z",
       "endAt": "2026-03-14T17:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "b87da1ff-296c-4667-8b5a-21852b83ce9d",
-      "userId": "9245371b-c50a-400e-94f9-a38c9c4bb21b",
+      "id": "e808c623-a224-4ed4-8023-b5f020e9eaa9",
+      "userId": "20f404f3-3784-461b-ba44-6129d748174a",
       "startAt": "2026-03-10T15:00:00.000Z",
       "endAt": "2026-03-10T16:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "4d30373c-53a4-4b4d-a238-292c01060aed",
-      "userId": "9245371b-c50a-400e-94f9-a38c9c4bb21b",
+      "id": "19bb4805-31bc-44b5-9c41-61ee263f8d4e",
+      "userId": "20f404f3-3784-461b-ba44-6129d748174a",
       "startAt": "2026-03-11T18:00:00.000Z",
       "endAt": "2026-03-11T19:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "67ad21c0-87c5-4242-829c-be6618216a08",
-      "userId": "9245371b-c50a-400e-94f9-a38c9c4bb21b",
+      "id": "be27e657-8eee-42f1-b6b9-15d72a899019",
+      "userId": "20f404f3-3784-461b-ba44-6129d748174a",
       "startAt": "2026-03-12T14:00:00.000Z",
       "endAt": "2026-03-12T15:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "b9c71f4c-e333-456e-a302-e72572ae8020",
-      "userId": "9245371b-c50a-400e-94f9-a38c9c4bb21b",
+      "id": "27caf8d3-5983-42c3-a54f-ec208b440b9a",
+      "userId": "20f404f3-3784-461b-ba44-6129d748174a",
       "startAt": "2026-03-13T20:00:00.000Z",
       "endAt": "2026-03-13T21:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "d7adf686-bace-434c-bd5b-76d1b6c37f00",
-      "userId": "9245371b-c50a-400e-94f9-a38c9c4bb21b",
+      "id": "72f84594-1eb6-4e2d-99b7-cc59b2e76713",
+      "userId": "20f404f3-3784-461b-ba44-6129d748174a",
       "startAt": "2026-03-15T16:00:00.000Z",
       "endAt": "2026-03-15T17:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "6fea463c-1a70-43c2-92e4-8e054e53fee3",
-      "userId": "e13177b1-aa5a-4e9d-ae1b-8fd193e76b18",
+      "id": "87990711-fc04-4a8e-8a2a-b3bf1db18f4c",
+      "userId": "3fb0c624-7016-406d-9b7f-ce52d616c50b",
       "startAt": "2026-03-11T15:00:00.000Z",
       "endAt": "2026-03-11T16:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "514db3e5-e11e-4006-bec8-aca6a9fd2e89",
-      "userId": "e13177b1-aa5a-4e9d-ae1b-8fd193e76b18",
+      "id": "4158fe54-474f-4a18-9fb2-29811a5877c5",
+      "userId": "3fb0c624-7016-406d-9b7f-ce52d616c50b",
       "startAt": "2026-03-12T18:00:00.000Z",
       "endAt": "2026-03-12T19:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "770d40f7-0ade-460e-8207-97155f7ce653",
-      "userId": "e13177b1-aa5a-4e9d-ae1b-8fd193e76b18",
+      "id": "fd58555a-f1f1-4421-8cae-861d1c693fdc",
+      "userId": "3fb0c624-7016-406d-9b7f-ce52d616c50b",
       "startAt": "2026-03-13T14:00:00.000Z",
       "endAt": "2026-03-13T15:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "6998433c-a464-4d02-af1d-c31a4e2098bc",
-      "userId": "e13177b1-aa5a-4e9d-ae1b-8fd193e76b18",
+      "id": "687268b3-6caa-4103-9f59-7fd9ef05c31a",
+      "userId": "3fb0c624-7016-406d-9b7f-ce52d616c50b",
       "startAt": "2026-03-14T20:00:00.000Z",
       "endAt": "2026-03-14T21:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     },
     {
-      "id": "d6daee65-0108-4ce8-b788-baefe28bc042",
-      "userId": "e13177b1-aa5a-4e9d-ae1b-8fd193e76b18",
+      "id": "d5b9bf6a-1ba7-41d0-84cd-c9048d13ec42",
+      "userId": "3fb0c624-7016-406d-9b7f-ce52d616c50b",
       "startAt": "2026-03-16T16:00:00.000Z",
       "endAt": "2026-03-16T17:00:00.000Z",
       "status": "busy",
-      "sourceUpdatedAt": "2026-03-08T02:21:55.208Z"
+      "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     }
   ],
-  "sharedSpaces": [
-    {
-      "id": "201250b5-62bb-4ee1-bb26-08e0d2d85ad5",
-      "name": "PM Team Demo",
-      "ownerUserId": "d0cb10ce-ea39-4871-a9de-93f5489ad3f2",
-      "createdAt": "2026-03-08T02:23:02.762Z"
-    }
-  ],
-  "sharedSpaceMembers": [
-    {
-      "id": "8cbcc9e2-89be-4e9e-aa0a-b478de784243",
-      "spaceId": "201250b5-62bb-4ee1-bb26-08e0d2d85ad5",
-      "userId": "d0cb10ce-ea39-4871-a9de-93f5489ad3f2"
-    },
-    {
-      "id": "92e4cebc-782b-4ff5-8258-299ec8f18d48",
-      "spaceId": "201250b5-62bb-4ee1-bb26-08e0d2d85ad5",
-      "userId": "2404e3ce-e3c3-4eff-b18c-c79a946c98bc"
-    },
-    {
-      "id": "543d91da-a9b6-4df5-916f-ad78ad37f53d",
-      "spaceId": "201250b5-62bb-4ee1-bb26-08e0d2d85ad5",
-      "userId": "9245371b-c50a-400e-94f9-a38c9c4bb21b"
-    }
-  ],
-  "proposals": [
-    {
-      "id": "ad73d365-ac44-4cfc-9aba-977dfef7e3f8",
-      "spaceId": "201250b5-62bb-4ee1-bb26-08e0d2d85ad5",
-      "proposerUserId": "d0cb10ce-ea39-4871-a9de-93f5489ad3f2",
-      "startAt": "2026-03-08T12:23:02.770Z",
-      "endAt": "2026-03-08T13:23:02.770Z",
-      "status": "valid",
-      "conflictingUserIds": [],
-      "alternativeSlots": [
-        "2026-03-08T12:23:06.252Z",
-        "2026-03-08T12:53:06.252Z"
-      ],
-      "createdAt": "2026-03-08T02:23:06.258Z"
-    },
-    {
-      "id": "1a85826f-451e-49f9-8c41-4f055a05dbae",
-      "spaceId": "201250b5-62bb-4ee1-bb26-08e0d2d85ad5",
-      "proposerUserId": "d0cb10ce-ea39-4871-a9de-93f5489ad3f2",
-      "startAt": "2026-03-08T13:23:02.770Z",
-      "endAt": "2026-03-08T14:23:02.770Z",
-      "status": "valid",
-      "conflictingUserIds": [],
-      "alternativeSlots": [
-        "2026-03-08T12:23:10.390Z",
-        "2026-03-08T12:53:10.390Z"
-      ],
-      "createdAt": "2026-03-08T02:23:10.395Z"
-    }
-  ],
-  "importLogs": [
-    {
-      "id": "9c04f74f-d0c2-47ce-bd73-2417ffc9a7cc",
-      "userId": "d0cb10ce-ea39-4871-a9de-93f5489ad3f2",
-      "runAt": "2026-03-08T02:22:15.643Z",
-      "status": "success",
-      "message": "Imported 0 blocks"
-    }
-  ]
+  "sharedSpaces": [],
+  "sharedSpaceMembers": [],
+  "proposals": [],
+  "importLogs": []
 }

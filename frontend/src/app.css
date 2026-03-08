@@ -1,2 +1,30 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+.btn-brand-blue {
+  background-color: #3496d2;
+  border-color: #3496d2;
+  color: #ffffff;
+}
+
+.btn-brand-blue:hover {
+  background-color: #2e87bd;
+  border-color: #2e87bd;
+}
+
+.btn-brand-green {
+  background-color: #5cbe48;
+  border-color: #5cbe48;
+  color: #ffffff;
+}
+
+.btn-brand-green:hover {
+  background-color: #53ab40;
+  border-color: #53ab40;
+}
+
+.proposal-valid {
+  background-color: #5cbe48;
+  border-color: #5cbe48;
+  color: #ffffff;
+}
