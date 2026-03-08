@@ -26,6 +26,15 @@
       "outlookHtmlUrl": "https://outlook.office.com/calendar/published/example3.html",
       "createdAt": "2026-03-08T03:30:21.653Z",
       "lastImportAt": "2026-03-08T03:30:21.653Z"
+    },
+    {
+      "id": "02415990-63a0-4156-bb40-a6efc1633bb6",
+      "name": "sui",
+      "email": "skz@mit.edu",
+      "timezone": "America/New_York",
+      "outlookHtmlUrl": "https://outlook.office365.com/owa/calendar/6eacb03cd4d9487498669ceedce15b0d@mit.edu/11fd925c04bc4f0bbc9975c15eaa26933968982047627905136/calendar.ics",
+      "createdAt": "2026-03-08T03:43:41.422Z",
+      "lastImportAt": "2026-03-08T03:43:54.135Z"
     }
   ],
   "availabilityBlocks": [
@@ -150,8 +159,61 @@
       "sourceUpdatedAt": "2026-03-08T03:30:21.653Z"
     }
   ],
-  "sharedSpaces": [],
-  "sharedSpaceMembers": [],
-  "proposals": [],
-  "importLogs": []
+  "sharedSpaces": [
+    {
+      "id": "e5444274-e2cf-46c1-9b32-f89a91aafc05",
+      "name": "PM Team Demo",
+      "ownerUserId": "02415990-63a0-4156-bb40-a6efc1633bb6",
+      "createdAt": "2026-03-08T03:43:46.116Z"
+    }
+  ],
+  "sharedSpaceMembers": [
+    {
+      "id": "52caeb0c-1592-4949-b113-4e2c9f543d63",
+      "spaceId": "e5444274-e2cf-46c1-9b32-f89a91aafc05",
+      "userId": "02415990-63a0-4156-bb40-a6efc1633bb6"
+    },
+    {
+      "id": "38fb3ac9-287e-4bce-af41-860da18567e4",
+      "spaceId": "e5444274-e2cf-46c1-9b32-f89a91aafc05",
+      "userId": "ff02af2b-3701-41dd-b7ea-14b1fc6d81c9"
+    },
+    {
+      "id": "cbb35500-a25b-47b3-8183-dbdf0e096c31",
+      "spaceId": "e5444274-e2cf-46c1-9b32-f89a91aafc05",
+      "userId": "20f404f3-3784-461b-ba44-6129d748174a"
+    }
+  ],
+  "proposals": [
+    {
+      "id": "d7447c07-df26-4f70-a5ef-a787420b75ec",
+      "spaceId": "e5444274-e2cf-46c1-9b32-f89a91aafc05",
+      "proposerUserId": "02415990-63a0-4156-bb40-a6efc1633bb6",
+      "startAt": "2026-03-08T12:43:46.122Z",
+      "endAt": "2026-03-08T13:43:46.122Z",
+      "status": "valid",
+      "conflictingUserIds": [],
+      "alternativeSlots": [
+        "2026-03-08T12:13:47.814Z",
+        "2026-03-08T12:43:47.814Z"
+      ],
+      "createdAt": "2026-03-08T03:43:47.821Z"
+    }
+  ],
+  "importLogs": [
+    {
+      "id": "7e7ba5f8-f48d-4f2a-b1f5-cd6c629bb428",
+      "userId": "02415990-63a0-4156-bb40-a6efc1633bb6",
+      "runAt": "2026-03-08T03:43:42.093Z",
+      "status": "success",
+      "message": "Imported 0 blocks"
+    },
+    {
+      "id": "b10c2c05-0bc0-4aae-b945-f01327aa0425",
+      "userId": "02415990-63a0-4156-bb40-a6efc1633bb6",
+      "runAt": "2026-03-08T03:43:54.135Z",
+      "status": "success",
+      "message": "Imported 0 blocks"
+    }
+  ]
 }

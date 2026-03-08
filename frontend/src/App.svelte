@@ -43,7 +43,11 @@
     endAt: string
   }
 
-  const API_BASE = 'http://localhost:3001'
+  const DEFAULT_API_BASE = 'http://localhost:3001'
+
+  let apiBase = DEFAULT_API_BASE
+  let serverModalOpen = false
+  let serverDraft = DEFAULT_API_BASE
 
   let name = ''
   let email = ''
@@ -91,7 +95,7 @@
     loading = true
 
     try {
-      const result = await requestJson<{ ok: boolean; reseededUsers?: number }>(API_BASE, '/admin/reset', { method: 'POST' })
+      const result = await requestJson<{ ok: boolean; reseededUsers?: number }>(apiBase, '/admin/reset', { method: 'POST' })
 
       name = ''
       email = ''
@@ -107,7 +111,7 @@
       selectedMemberIds = []
       suggestions = []
       proposalResult = null
-      const usersData = await requestJson<{ users: User[] }>(API_BASE, '/users')
+      const usersData = await requestJson<{ users: User[] }>(apiBase, '/users')
       users = usersData.users
       success = `Database reset. Demo users reseeded: ${result.reseededUsers ?? users.length}.`
     } catch (e) {
@@ -118,7 +122,7 @@
   }
 
   async function loadUsers() {
-    const data = await requestJson<{ users: User[] }>(API_BASE, '/users')
+    const data = await requestJson<{ users: User[] }>(apiBase, '/users')
     users = data.users
 
     if (currentUser) {
@@ -130,7 +134,7 @@
   }
 
   async function loadAvailability(userId: string) {
-    const data = await requestJson<{ user: User; blocks: AvailabilityBlock[] }>(API_BASE, `/users/${userId}/availability`)
+    const data = await requestJson<{ user: User; blocks: AvailabilityBlock[] }>(apiBase, `/users/${userId}/availability`)
     availability = data.blocks
     currentUser = data.user
   }
@@ -148,7 +152,7 @@
         calendarFileName = calendarFile.name
       }
 
-      const created = await requestJson<{ user: User }>(API_BASE, '/users', {
+      const created = await requestJson<{ user: User }>(apiBase, '/users', {
         method: 'POST',
         body: JSON.stringify({
           name,
@@ -162,7 +166,7 @@
 
       currentUser = created.user
 
-      const imported = await requestJson<{ importedCount: number }>(API_BASE, `/users/${created.user.id}/import`, {
+      const imported = await requestJson<{ importedCount: number }>(apiBase, `/users/${created.user.id}/import`, {
         method: 'POST',
       })
 
@@ -189,7 +193,7 @@
     loading = true
 
     try {
-      const imported = await requestJson<{ importedCount: number }>(API_BASE, `/users/${currentUser.id}/import`, {
+      const imported = await requestJson<{ importedCount: number }>(apiBase, `/users/${currentUser.id}/import`, {
         method: 'POST',
       })
       await loadAvailability(currentUser.id)
@@ -230,7 +234,7 @@
         memberUserIds: currentUser ? selectedMemberIds : selectedMemberIds.slice(1),
       }
 
-      const data = await requestJson<{ space: Space }>(API_BASE, '/spaces', {
+      const data = await requestJson<{ space: Space }>(apiBase, '/spaces', {
         method: 'POST',
         body: JSON.stringify(payload),
       })
@@ -253,7 +257,7 @@
 
     try {
       const data = await requestJson<{ suggestions: Suggestion[] }>(
-        API_BASE,
+        apiBase,
         `/spaces/${createdSpace.id}/overlap?durationMin=${durationMin}&days=14`,
       )
       suggestions = data.suggestions
@@ -277,7 +281,7 @@
         throw new Error('No proposer user available')
       }
 
-      const data = await requestJson<{ proposal: Proposal }>(API_BASE, `/spaces/${createdSpace.id}/proposals`, {
+      const data = await requestJson<{ proposal: Proposal }>(apiBase, `/spaces/${createdSpace.id}/proposals`, {
         method: 'POST',
         body: JSON.stringify({
           proposerUserId,
@@ -299,6 +303,37 @@
     proposalResult = null
   }
 
+  function openServerModal() {
+    serverDraft = apiBase
+    serverModalOpen = true
+  }
+
+  function closeServerModal() {
+    serverModalOpen = false
+  }
+
+  function saveServerUrl() {
+    const trimmed = serverDraft.trim()
+    if (!trimmed || !/^https?:\/\//i.test(trimmed)) {
+      error = 'Server URL must start with http:// or https://'
+      return
+    }
+
+    apiBase = trimmed.replace(/\/+$/, '')
+    localStorage.setItem('schedulely_api_base', apiBase)
+    success = `Server set to ${apiBase}`
+    serverModalOpen = false
+  }
+
+  function loadApiBase() {
+    const stored = localStorage.getItem('schedulely_api_base')
+    if (stored && /^https?:\/\//i.test(stored)) {
+      apiBase = stored.replace(/\/+$/, '')
+      serverDraft = apiBase
+    }
+  }
+
+  loadApiBase()
   loadUsers()
 </script>
 
@@ -313,9 +348,12 @@
         />
       </div>
       <div class="hidden flex-1 lg:block"></div>
-      <button class="btn btn-error btn-outline" on:click={resetDatabase} disabled={loading}>
-        Reset Database
-      </button>
+      <div class="flex items-center gap-2">
+        <button class="btn btn-outline" on:click={openServerModal} disabled={loading}>Set Server</button>
+        <button class="btn btn-error btn-outline" on:click={resetDatabase} disabled={loading}>
+          Reset Database
+        </button>
+      </div>
     </div>
 
     <div class="grid flex-1 min-h-0 gap-6 lg:grid-cols-3">
@@ -505,6 +543,24 @@
       </section>
     </div>
   </div>
+
+  {#if serverModalOpen}
+    <div class="modal modal-open">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Set Server URL</h3>
+        <p class="text-sm opacity-70 mt-1">Default: {DEFAULT_API_BASE}</p>
+        <label class="form-control mt-3">
+          <span class="label-text">Server URL</span>
+          <input class="input input-bordered" bind:value={serverDraft} placeholder="http://localhost:3001" />
+        </label>
+        <div class="modal-action">
+          <button class="btn btn-outline" on:click={closeServerModal}>Cancel</button>
+          <button class="btn btn-brand-blue" on:click={saveServerUrl}>Save</button>
+        </div>
+      </div>
+      <button class="modal-backdrop" on:click={closeServerModal}>close</button>
+    </div>
+  {/if}
 
   {#if error}
     <div class="toast toast-end">
