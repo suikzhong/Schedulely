@@ -63,6 +63,22 @@ if (parsedIcs.length !== 2) {
   throw new Error('ICS parser smoke check failed')
 }
 
+const htmlSample = `
+<html><body>
+  <table>
+    <tr><td>03/10/2026 9:00 AM - 03/10/2026 10:00 AM</td></tr>
+  </table>
+</body></html>`
+
+const parsedHtml = parsePublishedCalendar(htmlSample, ownerId, 14, {
+  sourceUrl: 'https://outlook.office.com/calendar/published/demo.html',
+  contentType: 'text/html; charset=utf-8',
+})
+
+if (parsedHtml.length < 1) {
+  throw new Error('Outlook HTML parser smoke check failed')
+}
+
 const createSpaceRes = await app.inject({
   method: 'POST',
   path: '/spaces',

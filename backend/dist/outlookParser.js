@@ -54,6 +54,55 @@ function toBusyBlocks(dateCandidates, userId, sourceUpdatedAt, minDate, maxDate,
     }
     return blocks;
 }
+function stripHtml(input) {
+    return input
+        .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+        .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/&amp;/gi, '&')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+function parseUsDateRanges(html, userId, sourceUpdatedAt, minDate, maxDate) {
+    const text = stripHtml(html);
+    const rangeRegex = /(\d{1,2}\/\d{1,2}\/\d{4})\s+(\d{1,2}:\d{2}\s*(?:AM|PM))\s*-\s*((?:\d{1,2}\/\d{1,2}\/\d{4})\s+)?(\d{1,2}:\d{2}\s*(?:AM|PM))/gi;
+    const blocks = [];
+    const seen = new Set();
+    for (const match of text.matchAll(rangeRegex)) {
+        const startDate = match[1];
+        const startTime = match[2];
+        const maybeEndDate = (match[3] ?? '').trim();
+        const endTime = match[4];
+        const endDate = maybeEndDate.length > 0 ? maybeEndDate : startDate;
+        const start = new Date(`${startDate} ${startTime}`);
+        const end = new Date(`${endDate} ${endTime}`);
+        if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+            continue;
+        }
+        const durationMs = end.getTime() - start.getTime();
+        if (durationMs <= 0 || durationMs > 12 * 60 * 60 * 1000) {
+            continue;
+        }
+        if (end < minDate || start > maxDate) {
+            continue;
+        }
+        const key = `${start.toISOString()}|${end.toISOString()}`;
+        if (seen.has(key)) {
+            continue;
+        }
+        seen.add(key);
+        blocks.push({
+            id: randomUUID(),
+            userId,
+            startAt: start.toISOString(),
+            endAt: end.toISOString(),
+            status: 'busy',
+            sourceUpdatedAt,
+        });
+    }
+    return blocks;
+}
 export function parseOutlookPublishedHtml(html, userId, horizonDays) {
     const sourceUpdatedAt = new Date().toISOString();
     const minDate = new Date();
@@ -62,10 +111,17 @@ export function parseOutlookPublishedHtml(html, userId, horizonDays) {
     const isoDates = parseIsoDates(html);
     const usDates = parseUsDates(html);
     const blocks = toBusyBlocks([...isoDates, ...usDates], userId, sourceUpdatedAt, minDate, maxDate);
-    if (blocks.length === 0) {
-        throw new Error('Could not parse events from this Outlook published HTML page. Try another published link or use seeded demo users.');
+    const rangeBlocks = parseUsDateRanges(html, userId, sourceUpdatedAt, minDate, maxDate);
+    const merged = [...blocks, ...rangeBlocks];
+    const deduped = new Map();
+    for (const block of merged) {
+        const key = `${block.startAt}|${block.endAt}`;
+        if (!deduped.has(key)) {
+            deduped.set(key, block);
+        }
     }
-    return blocks;
+    const finalBlocks = [...deduped.values()];
+    return finalBlocks;
 }
 function parseIcsDateToken(token) {
     const value = token.trim();
@@ -184,11 +240,7 @@ export function parsePublishedCalendar(raw, userId, horizonDays, options) {
     const maxDate = new Date(minDate);
     maxDate.setUTCDate(maxDate.getUTCDate() + horizonDays);
     if (isLikelyIcs(raw, options?.sourceUrl, options?.contentType)) {
-        const blocks = parseIcsEvents(raw, userId, sourceUpdatedAt, minDate, maxDate);
-        if (blocks.length === 0) {
-            throw new Error('Could not parse events from ICS calendar feed. Check the ICS URL and try again.');
-        }
-        return blocks;
+        return parseIcsEvents(raw, userId, sourceUpdatedAt, minDate, maxDate);
     }
     return parseOutlookPublishedHtml(raw, userId, horizonDays);
 }

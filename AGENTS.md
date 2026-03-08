@@ -46,6 +46,7 @@ If no clear choice exists, pause and ask the user.
 
 ## Testing
 When fixing bugs, add a regression test when feasible.
+if there are separate subsystems such as frontend and backend, have tests in all subsystems.
 
 Run tests relevant to the changed behavior.
 

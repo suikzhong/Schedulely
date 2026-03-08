@@ -9,6 +9,20 @@ import type { MeetingProposal, SharedSpace, SharedSpaceMember, User } from './ty
 
 const HORIZON_DAYS = 14
 
+function toIcsFallbackUrl(sourceUrl: string): string | null {
+  if (!/\.html(\?|$)/i.test(sourceUrl)) {
+    return null
+  }
+
+  try {
+    const parsed = new URL(sourceUrl)
+    parsed.pathname = parsed.pathname.replace(/\.html$/i, '.ics')
+    return parsed.toString()
+  } catch {
+    return sourceUrl.replace(/\.html(\?|$)/i, '.ics$1')
+  }
+}
+
 export async function buildApp() {
   const app = Fastify({ logger: true })
   await app.register(cors, { origin: true })
@@ -103,26 +117,52 @@ export async function buildApp() {
       let feed = ''
       let sourceUrl = user.outlookHtmlUrl
       let contentType: string | undefined
+      let blocks = [] as ReturnType<typeof parsePublishedCalendar>
 
       if (user.calendarFileContent) {
         feed = user.calendarFileContent
         sourceUrl = user.calendarFileName ?? 'uploaded-calendar'
         contentType = user.calendarFileName?.toLowerCase().endsWith('.ics') ? 'text/calendar' : undefined
+        blocks = parsePublishedCalendar(feed, user.id, HORIZON_DAYS, {
+          sourceUrl,
+          contentType,
+        })
       } else if (user.outlookHtmlUrl) {
-        const response = await fetch(user.outlookHtmlUrl)
-        if (!response.ok) {
-          throw new Error(`Failed to fetch published calendar: HTTP ${response.status}`)
+        const candidates = [user.outlookHtmlUrl]
+        const icsFallback = toIcsFallbackUrl(user.outlookHtmlUrl)
+        if (icsFallback && icsFallback !== user.outlookHtmlUrl) {
+          candidates.push(icsFallback)
         }
-        feed = await response.text()
-        contentType = response.headers.get('content-type') ?? undefined
+
+        let lastError: Error | null = null
+
+        for (const candidateUrl of candidates) {
+          try {
+            const response = await fetch(candidateUrl)
+            if (!response.ok) {
+              throw new Error(`Failed to fetch published calendar: HTTP ${response.status}`)
+            }
+
+            feed = await response.text()
+            sourceUrl = candidateUrl
+            contentType = response.headers.get('content-type') ?? undefined
+            blocks = parsePublishedCalendar(feed, user.id, HORIZON_DAYS, {
+              sourceUrl,
+              contentType,
+            })
+            lastError = null
+            break
+          } catch (error) {
+            lastError = error instanceof Error ? error : new Error('Unknown import error')
+          }
+        }
+
+        if (lastError) {
+          throw lastError
+        }
       } else {
         throw new Error('No calendar source configured for this user')
       }
-
-      const blocks = parsePublishedCalendar(feed, user.id, HORIZON_DAYS, {
-        sourceUrl,
-        contentType,
-      })
 
       const importedAt = new Date().toISOString()
 

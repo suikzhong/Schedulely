@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { fetchJson as requestJson } from './http'
+
   type User = {
     id: string
     name: string
@@ -79,21 +81,6 @@
     success = ''
   }
 
-  async function fetchJson<T>(path: string, init?: RequestInit): Promise<T> {
-    const res = await fetch(`${API_BASE}${path}`, {
-      headers: { 'content-type': 'application/json' },
-      ...init,
-    })
-
-    const data = (await res.json()) as T & { error?: string }
-
-    if (!res.ok) {
-      throw new Error(data.error ?? `Request failed (${res.status})`)
-    }
-
-    return data
-  }
-
   async function resetDatabase() {
     const confirmed = window.confirm('Erase all data and reseed demo users/calendars?')
     if (!confirmed) {
@@ -104,7 +91,7 @@
     loading = true
 
     try {
-      const result = await fetchJson<{ ok: boolean; reseededUsers?: number }>('/admin/reset', { method: 'POST' })
+      const result = await requestJson<{ ok: boolean; reseededUsers?: number }>(API_BASE, '/admin/reset', { method: 'POST' })
 
       name = ''
       email = ''
@@ -120,9 +107,9 @@
       selectedMemberIds = []
       suggestions = []
       proposalResult = null
-      await loadUsers()
+      const usersData = await requestJson<{ users: User[] }>(API_BASE, '/users')
+      users = usersData.users
       success = `Database reset. Demo users reseeded: ${result.reseededUsers ?? users.length}.`
-      window.location.reload()
     } catch (e) {
       error = e instanceof Error ? e.message : 'Failed to reset database'
     } finally {
@@ -131,7 +118,7 @@
   }
 
   async function loadUsers() {
-    const data = await fetchJson<{ users: User[] }>('/users')
+    const data = await requestJson<{ users: User[] }>(API_BASE, '/users')
     users = data.users
 
     if (currentUser) {
@@ -143,7 +130,7 @@
   }
 
   async function loadAvailability(userId: string) {
-    const data = await fetchJson<{ user: User; blocks: AvailabilityBlock[] }>(`/users/${userId}/availability`)
+    const data = await requestJson<{ user: User; blocks: AvailabilityBlock[] }>(API_BASE, `/users/${userId}/availability`)
     availability = data.blocks
     currentUser = data.user
   }
@@ -161,7 +148,7 @@
         calendarFileName = calendarFile.name
       }
 
-      const created = await fetchJson<{ user: User }>('/users', {
+      const created = await requestJson<{ user: User }>(API_BASE, '/users', {
         method: 'POST',
         body: JSON.stringify({
           name,
@@ -175,7 +162,7 @@
 
       currentUser = created.user
 
-      const imported = await fetchJson<{ importedCount: number }>(`/users/${created.user.id}/import`, {
+      const imported = await requestJson<{ importedCount: number }>(API_BASE, `/users/${created.user.id}/import`, {
         method: 'POST',
       })
 
@@ -202,7 +189,7 @@
     loading = true
 
     try {
-      const imported = await fetchJson<{ importedCount: number }>(`/users/${currentUser.id}/import`, {
+      const imported = await requestJson<{ importedCount: number }>(API_BASE, `/users/${currentUser.id}/import`, {
         method: 'POST',
       })
       await loadAvailability(currentUser.id)
@@ -243,7 +230,7 @@
         memberUserIds: currentUser ? selectedMemberIds : selectedMemberIds.slice(1),
       }
 
-      const data = await fetchJson<{ space: Space }>('/spaces', {
+      const data = await requestJson<{ space: Space }>(API_BASE, '/spaces', {
         method: 'POST',
         body: JSON.stringify(payload),
       })
@@ -265,7 +252,8 @@
     loading = true
 
     try {
-      const data = await fetchJson<{ suggestions: Suggestion[] }>(
+      const data = await requestJson<{ suggestions: Suggestion[] }>(
+        API_BASE,
         `/spaces/${createdSpace.id}/overlap?durationMin=${durationMin}&days=14`,
       )
       suggestions = data.suggestions
@@ -289,7 +277,7 @@
         throw new Error('No proposer user available')
       }
 
-      const data = await fetchJson<{ proposal: Proposal }>(`/spaces/${createdSpace.id}/proposals`, {
+      const data = await requestJson<{ proposal: Proposal }>(API_BASE, `/spaces/${createdSpace.id}/proposals`, {
         method: 'POST',
         body: JSON.stringify({
           proposerUserId,
@@ -316,7 +304,14 @@
 
 <main class="h-screen overflow-hidden bg-base-200 p-4 lg:p-6">
   <div class="mx-auto flex h-full max-w-6xl min-h-0 flex-col">
-    <div class="mb-4 flex shrink-0 justify-end gap-2">
+    <div class="mb-4 flex shrink-0 items-center justify-between gap-3">
+      <div class="flex items-center">
+        <img
+          src="/sch-logo.png"
+          alt="Schedulely logo"
+          class="h-12 w-auto max-w-[52vw] rounded-md object-contain lg:max-w-[20rem]"
+        />
+      </div>
       <button class="btn btn-error btn-outline" on:click={resetDatabase} disabled={loading}>
         Reset Database
       </button>
@@ -454,6 +449,16 @@
                   </button>
                   <button class="btn" on:click={loadOverlap} disabled={!createdSpace || loading}>Refresh overlap</button>
                 </div>
+
+                {#if currentUser}
+                  <div class="text-xs opacity-80">
+                    Owner (auto-included in members): {currentUser.name}
+                  </div>
+                {:else if selectedMemberIds.length > 0}
+                  <div class="text-xs opacity-80">
+                    Owner (auto-included in members): {users.find((u) => u.id === selectedMemberIds[0])?.name ?? 'First selected user'}
+                  </div>
+                {/if}
 
                 <div class="min-h-0 overflow-auto rounded-lg border border-base-300 p-2">
                   <div class="mb-2 text-sm font-medium">Members</div>
