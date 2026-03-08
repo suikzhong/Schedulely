@@ -1,7 +1,9 @@
 # Schedulely Demo
 
 Work submitted for Intro to PM class Group 8
+
 Sui Zhong, Calvin Yuxiong Lin, Tracy Cen
+
 Code written with the aid of OpenAI Codex GPT5.3
 
 Minimal scheduling demo for class.
@@ -18,23 +20,24 @@ The app lets a user:
 ## Requirements
 - Node.js 20+ and npm
 
-## Run the demo
-1. Start the backend:
-```bash
-cd /Users/skz/Documents/sch/backend
+## Run the demo (assume you're in the repo directory after cloning)
+
+### Set up environment
+```cd backend
 npm install
-npm run build
-npm start
+cd ../frontend
+npm install
 ```
 
-2. Start the frontend (new terminal):
-```bash
-cd /Users/skz/Documents/sch/frontend
-npm install
+### Start both the frontend and backend:
+```cd backend
+npm run build
+npm start
+cd ../frontend
 npm run dev
 ```
 
-3. Open the app:
+### Start a browser, then open the app:
 - [http://localhost:5173](http://localhost:5173)
 
 Backend health check (optional):
