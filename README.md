@@ -23,14 +23,16 @@ The app lets a user:
 ## Run the demo (assume you're in the repo directory after cloning)
 
 ### Set up environment
-```cd backend
+```
+cd backend
 npm install
 cd ../frontend
 npm install
 ```
 
 ### Start both the frontend and backend:
-```cd backend
+```
+cd backend
 npm run build
 npm start
 cd ../frontend
