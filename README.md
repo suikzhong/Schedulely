@@ -44,3 +44,11 @@ npm run dev
 
 Backend health check (optional):
 - [http://localhost:3001/health](http://localhost:3001/health)
+
+## Using the App
+
+You will need an Outlook link to onboard yourself as a user. 
+
+Go to Outlook. Open `Settings/Calendar`, `View/Shared Calendars`, then the `Publish` button in `Publish a Calendar` and then copy the `HTML/ICS` link shown.
+
+In the Schedulely app, paste the link into `Published calendar URL` box.
